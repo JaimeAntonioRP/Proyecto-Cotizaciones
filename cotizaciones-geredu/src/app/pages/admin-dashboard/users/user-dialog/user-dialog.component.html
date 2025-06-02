@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>{{ data ? 'Editar Usuario' : 'Nuevo Usuario' }}</h2>
+<form [formGroup]="form" (ngSubmit)="save()" class="user-form">
+  <mat-form-field appearance="fill" class="form-field">
+    <mat-label>Nombre</mat-label>
+    <input matInput formControlName="nombre" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="form-field">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="form-field">
+    <mat-label>Rol</mat-label>
+    <mat-select formControlName="rol">
+      <mat-option *ngFor="let rol of roles" [value]="rol">{{ rol }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="form-field">
+    <mat-label>Password</mat-label>
+    <input matInput type="password" formControlName="password" placeholder="Solo al crear o cambiar" />
+  </mat-form-field>
+
+  <div class="actions">
+    <button mat-button (click)="close()">Cancelar</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Guardar</button>
+  </div>
+</form>

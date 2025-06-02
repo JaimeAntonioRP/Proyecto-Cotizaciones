@@ -1,0 +1,75 @@
+<h2 mat-dialog-title>{{ data ? 'Editar Solicitud' : 'Nueva Solicitud' }}</h2>
+
+<form [formGroup]="form" (ngSubmit)="save()" class="solicitud-form">
+
+  <mat-form-field appearance="fill" class="form-field">
+    <mat-label>Número Solicitud</mat-label>
+    <input matInput formControlName="numeroSolicitud" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="form-field">
+    <mat-label>Año</mat-label>
+    <input matInput type="number" formControlName="anio" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="form-field">
+    <mat-label>Tipo</mat-label>
+    <input matInput formControlName="tipo" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="form-field">
+    <mat-label>Número Pedido</mat-label>
+    <input matInput formControlName="numeroPedido" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="form-field">
+    <mat-label>Unidad Ejecutora</mat-label>
+    <input matInput formControlName="unidadEjecutora" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="form-field">
+    <mat-label>Código Unidad</mat-label>
+    <input matInput formControlName="codigoUnidad" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="form-field">
+    <mat-label>Número Consolidado</mat-label>
+    <input matInput formControlName="numeroConsolidado" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="form-field">
+    <mat-label>Rubro</mat-label>
+    <input matInput formControlName="rubro" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="form-field">
+    <mat-label>Concepto</mat-label>
+    <textarea matInput formControlName="concepto" rows="3"></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="form-field">
+    <mat-label>Publicado Por</mat-label>
+    <input matInput formControlName="publicadoPor" />
+  </mat-form-field>
+
+<mat-form-field appearance="fill" class="form-field">
+  <mat-label>Fecha Inicio</mat-label>
+  <input matInput [matDatepicker]="picker1" formControlName="fechaInicio" />
+  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+  <mat-datepicker #picker1></mat-datepicker>
+</mat-form-field>
+
+<mat-form-field appearance="fill" class="form-field">
+  <mat-label>Fecha Límite</mat-label>
+  <input matInput [matDatepicker]="picker2" formControlName="fechaLimite" />
+  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+  <mat-datepicker #picker2></mat-datepicker>
+</mat-form-field>
+
+
+  <div class="actions">
+    <button mat-button type="button" (click)="close()">Cancelar</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Guardar</button>
+  </div>
+</form>
+

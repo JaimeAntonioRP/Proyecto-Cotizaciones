@@ -1,0 +1,36 @@
+<div class="modal-background">
+  <div class="modal-container p-4 bg-white rounded shadow">
+    <h3>{{ model.id ? 'Editar Usuario' : 'Nuevo Usuario' }}</h3>
+
+    <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+      <div class="mb-3">
+        <label>Nombre</label>
+        <input [(ngModel)]="model.nombre" name="nombre" required class="form-control" />
+      </div>
+
+      <div class="mb-3">
+        <label>Email</label>
+        <input type="email" [(ngModel)]="model.email" name="email" required class="form-control" />
+      </div>
+
+      <div class="mb-3">
+        <label>Password</label>
+        <input type="password" [(ngModel)]="model.password" name="password" [required]="!model.id" class="form-control" />
+        <small *ngIf="model.id">Deja en blanco para no cambiar la contraseña</small>
+      </div>
+
+      <div class="mb-3">
+        <label>Rol</label>
+        <select [(ngModel)]="model.rol" name="rol" required class="form-select">
+          <option value="ADMIN">Admin</option>
+          <option value="TRABAJADOR">Trabajador</option>
+        </select>
+      </div>
+
+      <button type="submit" [disabled]="!userForm.form.valid" class="btn btn-primary me-2">
+        Guardar
+      </button>
+      <button type="button" (click)="onCancel()" class="btn btn-secondary">Cancelar</button>
+    </form>
+  </div>
+</div>

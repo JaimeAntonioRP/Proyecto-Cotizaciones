@@ -1,0 +1,14 @@
+body, html {
+  height: 100%;
+  margin: 0;
+  background-color: #f1f3f5; /* un gris claro suave */
+}
+
+.container {
+  height: 100vh;
+}
+
+.card {
+  border-radius: 12px;
+  background-color: white;
+}

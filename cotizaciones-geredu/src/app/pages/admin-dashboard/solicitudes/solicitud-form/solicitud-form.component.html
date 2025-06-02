@@ -1,0 +1,62 @@
+<h2>{{ isEditMode ? 'Editar Solicitud' : 'Nueva Solicitud' }}</h2>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="solicitud-form">
+  <div class="form-grid">
+
+    <!-- Mostrar número de solicitud si no es modo edición -->
+    <mat-form-field appearance="fill">
+        <mat-label>Número Solicitud</mat-label>
+        <input matInput [value]="form.get('numeroSolicitud')?.value" readonly>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="fill">
+      <mat-label>Año</mat-label>
+      <input matInput type="number" formControlName="anio">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Tipo</mat-label>
+      <mat-select formControlName="tipo">
+        <mat-option value="BIENES">BIENES</mat-option>
+        <mat-option value="SERVICIOS">SERVICIOS</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Número Pedido</mat-label>
+      <input matInput formControlName="numeroPedido">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Concepto</mat-label>
+      <textarea matInput formControlName="concepto" rows="3"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Publicado Por</mat-label>
+      <input matInput formControlName="publicadoPor">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Fecha Inicio</mat-label>
+      <input matInput [matDatepicker]="pickerInicio" formControlName="fechaInicio">
+      <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+      <mat-datepicker #pickerInicio></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Fecha Límite</mat-label>
+      <input matInput [matDatepicker]="pickerLimite" formControlName="fechaLimite">
+      <mat-datepicker-toggle matSuffix [for]="pickerLimite"></mat-datepicker-toggle>
+      <mat-datepicker #pickerLimite></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="form-actions">
+    <button mat-button type="button" (click)="cancelar()">Cancelar</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+      {{ isEditMode ? 'Actualizar' : 'Guardar' }}
+    </button>
+  </div>
+</form>

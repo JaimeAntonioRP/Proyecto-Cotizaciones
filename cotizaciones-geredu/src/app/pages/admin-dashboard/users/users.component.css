@@ -1,0 +1,17 @@
+/* Contenedor padre */
+.container {
+  display: flex;
+  justify-content: center;
+  /* Opcionalmente: align-items: center; si quieres centrar verticalmente */
+  padding: 2rem;
+}
+
+/* Formulario */
+.user-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 90%;
+  max-width: 480px;
+  margin: 0 auto;
+}

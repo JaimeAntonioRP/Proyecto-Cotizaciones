@@ -1,0 +1,16 @@
+.user-form {
+  width: 90%;
+  max-width: 600px; /* opcional para que no crezca demasiado en pantallas grandes */
+  margin: 0 auto; /* centra horizontalmente */
+}
+
+.form-field {
+  width: 100%;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
