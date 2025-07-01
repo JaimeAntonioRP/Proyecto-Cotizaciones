@@ -1,28 +1,31 @@
-  <button mat-raised-button color="primary" (click)="nuevoAnexo()">+ Añadir Anexo</button>
+<button mat-raised-button color="primary" (click)="nuevoAnexo()">+ Añadir Anexo</button>
 
-  <table mat-table [dataSource]="anexos" class="mat-elevation-z8">
+<table mat-table [dataSource]="anexos" class="mat-elevation-z8">
 
-    <!-- Tipo Documento -->
-    <ng-container matColumnDef="tipoDocumento">
-      <th mat-header-cell *matHeaderCellDef>Tipo</th>
-      <td mat-cell *matCellDef="let a">{{ a.tipoDocumento }}</td>
-    </ng-container>
+  <!-- Tipo Documento -->
+  <ng-container matColumnDef="tipoDocumento">
+    <th mat-header-cell *matHeaderCellDef>Tipo</th>
+    <td mat-cell *matCellDef="let a">{{ a.tipoDocumento }}</td>
+  </ng-container>
 
-    <!-- Nombre Archivo -->
-    <ng-container matColumnDef="nombreArchivo">
-      <th mat-header-cell *matHeaderCellDef>Nombre</th>
-      <td mat-cell *matCellDef="let a">{{ a.nombreArchivo }}</td>
-    </ng-container>
+  <!-- Nombre Archivo -->
+  <ng-container matColumnDef="nombreArchivo">
+    <th mat-header-cell *matHeaderCellDef>Nombre</th>
+    <td mat-cell *matCellDef="let a">{{ a.nombreArchivo }}</td>
+  </ng-container>
 
-    <!-- Acciones -->
-    <ng-container matColumnDef="acciones">
-      <th mat-header-cell *matHeaderCellDef>Acciones</th>
-      <td mat-cell *matCellDef="let a">
-        <button mat-button (click)="editar(a)">Editar</button>
-        <button mat-button color="warn" (click)="eliminar(a.id)">Eliminar</button>
-      </td>
-    </ng-container>
+  <!-- Acciones -->
+  <ng-container matColumnDef="acciones">
+    <th mat-header-cell *matHeaderCellDef>Acciones</th>
+    <td mat-cell *matCellDef="let a">
+      <button mat-button (click)="editar(a)">Editar</button>
+      <button mat-button color="warn" (click)="eliminar(a.id)">Eliminar</button>
+      <a [href]="'http://localhost:8080' + a.urlArchivo" target="_blank" download>
+        <button mat-button color="accent">Descargar</button>
+      </a>
+    </td>
+  </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

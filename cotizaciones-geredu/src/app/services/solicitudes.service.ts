@@ -33,6 +33,11 @@ export class SolicitudesService {
   deleteSolicitud(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
+  // ✅ Usado en el componente público
+  getAll(): Observable<Solicitud[]> {
+    return this.http.get<Solicitud[]>(this.baseUrl);
+  }
+
 
   // Opcional: Métodos para anexos e items si decides tener endpoints separados
   // getAnexosDeSolicitud(id: number): Observable<AnexoSolicitud[]> { ... }

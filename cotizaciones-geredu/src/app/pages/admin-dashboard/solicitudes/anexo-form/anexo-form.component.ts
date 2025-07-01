@@ -27,8 +27,8 @@ export class AnexoFormComponent implements OnInit {
   selectedFile: File | null = null;
   fileError: string | null = null;
 
-  solicitudId!: number;
-  anexoId?: number; // undefined para nuevo
+  solicitudId: number = 0;
+  anexoId?: number;
 
   constructor(
     private fb: FormBuilder,
@@ -45,17 +45,19 @@ export class AnexoFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Obtener solicitudId de query params (para nuevo)
-    this.route.queryParams.subscribe(params => {
-      this.solicitudId = +params['solicitudId'] || 0;
+    this.route.paramMap.subscribe(params => {
+      const solicitudParam = params.get('solicitudId');
+      const anexoParam = params.get('anexoId');
+
+      if (solicitudParam) {
+        this.solicitudId = +solicitudParam;
+      }
+
+      if (anexoParam) {
+        this.anexoId = +anexoParam;
+        this.cargarAnexo(this.anexoId);
+      }
     });
-
-    // Obtener anexoId de ruta (para editar)
-    this.anexoId = +this.route.snapshot.paramMap.get('id')!;
-
-    if (this.anexoId) {
-      this.cargarAnexo(this.anexoId);
-    }
   }
 
   cargarAnexo(id: number): void {
@@ -65,7 +67,6 @@ export class AnexoFormComponent implements OnInit {
         nombreArchivo: anexo.nombreArchivo,
         urlArchivo: anexo.urlArchivo || ''
       });
-      // Aquí no asignamos selectedFile porque no hay archivo local
     });
   }
 
@@ -106,32 +107,33 @@ export class AnexoFormComponent implements OnInit {
       return;
     }
 
-    const formData = new FormData();
-    formData.append('tipoDocumento', this.form.value.tipoDocumento);
-    formData.append('nombreArchivo', this.form.value.nombreArchivo);
-    formData.append('solicitudId', this.solicitudId.toString());
-
-    if (this.selectedFile) {
-      formData.append('file', this.selectedFile);
-    }
-
     if (this.anexoId) {
-      // Editar anexo
-      this.anexosService.update(this.anexoId, formData).subscribe({
+      // Actualización con o sin archivo
+      this.anexosService.update(this.anexoId, {
+        file: this.selectedFile,
+        tipoDocumento: this.form.value.tipoDocumento,
+        solicitudId: this.solicitudId,
+        nombreArchivo: this.form.value.nombreArchivo
+      }).subscribe({
         next: () => {
           this.snackBar.open('Anexo actualizado', 'Cerrar', { duration: 2000 });
-          this.router.navigate(['/anexos'], { queryParams: { solicitudId: this.solicitudId } });
+          this.router.navigate([`/admin/solicitudes/${this.solicitudId}/anexos`]);
         },
         error: () => {
           this.snackBar.open('Error al actualizar anexo', 'Cerrar', { duration: 2000 });
         }
       });
     } else {
-      // Nuevo anexo
+      // Creación de nuevo anexo
+      const formData = new FormData();
+      formData.append('file', this.selectedFile!);
+      formData.append('tipoDocumento', this.form.value.tipoDocumento);
+      formData.append('solicitudId', this.solicitudId.toString());
+
       this.anexosService.create(formData).subscribe({
         next: () => {
           this.snackBar.open('Anexo creado', 'Cerrar', { duration: 2000 });
-          this.router.navigate(['/anexos'], { queryParams: { solicitudId: this.solicitudId } });
+          this.router.navigate([`/admin/solicitudes/${this.solicitudId}/anexos`]);
         },
         error: () => {
           this.snackBar.open('Error al crear anexo', 'Cerrar', { duration: 2000 });
@@ -141,8 +143,6 @@ export class AnexoFormComponent implements OnInit {
   }
 
   cancelar(): void {
-    this.router.navigate([`admin/solicitudes/${this.solicitudId}/anexos`]);
-    
+    this.router.navigate([`/admin/solicitudes/${this.solicitudId}/anexos`]);
   }
-
 }

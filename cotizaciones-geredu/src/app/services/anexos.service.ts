@@ -15,22 +15,11 @@ export class AnexosService {
     return this.http.get<any>(`${this.api}/${id}`);
   }
 
-  create(data: any) {
-    // Usa el método upload para enviar archivo junto con datos
-    return this.upload(data.file, data.tipoDocumento, data.solicitudId);
-  }
-
-  upload(file: File, tipoDocumento: string, solicitudId: number) {
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('tipoDocumento', tipoDocumento);
-    formData.append('solicitudId', solicitudId.toString());
-
+  create(formData: FormData) {
     return this.http.post(`${this.api}/upload`, formData);
   }
 
   update(id: number, data: any) {
-    // Si viene archivo, usa FormData; si no, enviar JSON normal
     if (data.file) {
       const formData = new FormData();
       formData.append('file', data.file);
@@ -38,7 +27,6 @@ export class AnexosService {
       formData.append('solicitudId', data.solicitudId.toString());
       return this.http.put(`${this.api}/upload/${id}`, formData);
     } else {
-      // Actualización sin archivo (solo metadatos)
       return this.http.put(`${this.api}/${id}`, {
         tipoDocumento: data.tipoDocumento,
         solicitudId: data.solicitudId,

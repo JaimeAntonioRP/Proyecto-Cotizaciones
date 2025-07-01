@@ -1,0 +1,42 @@
+<div class="container">
+  <h2><img src="/assets/logo.png" width="50" style="vertical-align: middle;"> Solicitudes públicas</h2>
+
+  <mat-form-field appearance="outline" style="width: 100%;">
+    <mat-label>Buscar por número o concepto</mat-label>
+    <input matInput [formControl]="filtro" placeholder="Buscar...">
+  </mat-form-field>
+
+  <table mat-table [dataSource]="solicitudesFiltradas" class="mat-elevation-z8" style="width: 100%; margin-top: 10px;">
+
+    <ng-container matColumnDef="numeroSolicitud">
+      <th mat-header-cell *matHeaderCellDef>Número</th>
+      <td mat-cell *matCellDef="let s">{{ s.numeroSolicitud }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="anio">
+      <th mat-header-cell *matHeaderCellDef>Año</th>
+      <td mat-cell *matCellDef="let s">{{ s.anio }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="unidadEjecutora">
+      <th mat-header-cell *matHeaderCellDef>Unidad</th>
+      <td mat-cell *matCellDef="let s">{{ s.unidadEjecutora }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="concepto">
+      <th mat-header-cell *matHeaderCellDef>Concepto</th>
+      <td mat-cell *matCellDef="let s">{{ s.concepto }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let s">
+        <button mat-button color="primary" (click)="verAnexos(s)">Ver Anexos</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+</div>

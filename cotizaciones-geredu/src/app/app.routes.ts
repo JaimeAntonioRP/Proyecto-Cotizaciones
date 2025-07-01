@@ -10,6 +10,7 @@ import { CotizacionesComponent } from './pages/admin-dashboard/cotizaciones/coti
 import { SolicitudFormComponent } from './pages/admin-dashboard/solicitudes/solicitud-form/solicitud-form.component';
 import { AnexosComponent } from './pages/admin-dashboard/solicitudes/anexos/anexos.component';
 import { AnexoFormComponent } from './pages/admin-dashboard/solicitudes/anexo-form/anexo-form.component';
+import { PublicSolicitudesComponent } from './pages/public/public-solicitudes/public-solicitudes.component';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -28,8 +29,10 @@ export const routes: Routes = [
       { path: 'solicitudes/editar/:id', component: SolicitudFormComponent },
       { path: 'solicitudes/:id/anexos', component: AnexosComponent },
        // NUEVAS RUTAS PARA ANEXOS
-      { path: 'solicitudes/:id/anexos/nuevo', component: AnexoFormComponent },
-      { path: 'solicitudes/:id/anexos/editar/:anexoId', component: AnexoFormComponent },
+    { path: 'solicitudes/:solicitudId/anexos', component: AnexosComponent },
+    { path: 'solicitudes/:solicitudId/anexos/nuevo', component: AnexoFormComponent },
+    { path: 'solicitudes/:solicitudId/anexos/editar/:anexoId', component: AnexoFormComponent },
+
 
     ]
   },
@@ -42,7 +45,7 @@ export const routes: Routes = [
   },
 
   //{ path: 'unauthorized', component: UnauthorizedComponent }, // si tienes esta vista
-
+ // RUTA PÚBLICA
+  { path: 'public-solicitudes', component: PublicSolicitudesComponent },
   // Ruta catch-all (opcional)
-  { path: '**', redirectTo: 'login' }
 ];

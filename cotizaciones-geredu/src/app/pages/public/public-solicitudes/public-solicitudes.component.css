@@ -1,0 +1,26 @@
+.contenedor {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+.encabezado {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.imagen-encabezado {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.campo-busqueda {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.tabla {
+  width: 100%;
+}
